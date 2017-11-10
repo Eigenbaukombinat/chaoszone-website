@@ -1,0 +1,142 @@
+body {
+    color: white;
+    background-color: black;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.9) 100%), url(/images/Chaoszone.svg);
+    background-size: contain;
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-position: center;
+    font-family: 'Xolonium';
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0 50px 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    border-bottom: 2px solid white;
+    margin-bottom: 30px;
+    padding: 12px 0px 12px 0px;
+}
+
+a {
+    color: #ccc000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #34c300;
+    text-decoration: underline
+}
+
+div#logo a {
+    color: white;
+    /*float: left;*/
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav {
+    position: relative;
+    float: left;
+}
+
+nav ul{
+    text-align: left;
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+}
+
+nav li a {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+article {
+    margin-left: 200px;
+}
+
+footer {
+    border-top: solid 2px white;
+    color: #555;
+    font-size: 12px;
+    margin-top: 30px;
+    padding: 12px 0px 12px 0px;
+    text-align: right;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+div.info {
+    color: #555;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.pagination {
+    display: inline-block;
+    width: 100%
+}
+
+.wrapper {
+    flex: 1;
+}
+
+.left, .right {
+    display: inline-block;
+    fill: curentColor;
+}
+
+.left {
+    float: left;
+    margin-left: 10%;
+}
+
+.right {
+    float: right;
+    margin-right: 10%;
+}
+
+.left svg, .right svg {
+    margin-bottom: -3px;
+    margin-left: 0.8ex;
+    margin-right: 0.8ex;
+}
+
+#yacs {
+    width: 100%
+}
+
+.page img {
+    width: 100%
+}
+
+.authors_comments {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 0 1em 0;
+    background-color: #454545;
+    box-shadow: 5px 5px 5px #ffffff;
+    margin: 2em 0 2em;
+}
+
+@media screen and (max-width: 600px){
+  article {
+    margin: 120px 0 0 0;
+  }
+}

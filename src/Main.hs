@@ -1,0 +1,154 @@
+--------------------------------------------------------------------------------
+{-# LANGUAGE OverloadedStrings #-}
+import           Data.Monoid ((<>))
+import           Hakyll
+-- import           Hakyll.Web.Sass
+
+import           Data.Time.Clock (UTCTime)
+import           Data.Time.Format (parseTimeM, defaultTimeLocale)
+import           Data.List
+import           Data.Maybe (fromMaybe)
+import           System.FilePath (takeFileName)
+import           Control.Monad (liftM)
+import           Network.HTTP.Base (urlEncode)
+
+--------------------------------------------------------------------------------
+
+baseUrl :: String
+baseUrl = "https://chaoszone.cz"
+
+main :: IO ()
+main = hakyllWith config $ do
+
+    is <- sortIdentifiersByDate <$> getMatches "site/posts/*.md"
+
+    match "templates/*" $ compile templateBodyCompiler
+
+    match
+      (    "site/images/*"
+      .||. "site/fonts/*"
+      .||. "site/humans.txt"
+      .||. "site/robots.txt"
+      ) $ do
+        route   myRoute
+        compile copyFileCompiler
+
+    match "site/css/*.css" $ do
+        route   myRoute
+        compile compressCssCompiler
+
+    -- match "site/css/*.scss" $ do
+    --     route   $ myRoute `composeRoutes` setExtension "css"
+    --     compile $ fmap compressCss <$> sassCompiler
+
+    match (fromList ["site/about.md", "site/contact.md"]) $ do
+        route   $ myRoute `composeRoutes` setExtension "html"
+        compile $ do
+            -- firstUrl <- return . fromMaybe "" =<< getRoute (head is)
+            -- latestUrl <- return . fromMaybe "" =<< getRoute (last is)
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/default.html"
+                        -- (menuCtx firstUrl latestUrl)
+                        defaultContext
+                >>= relativizeUrls
+
+    match "site/index.md" $ do
+        route $ myRoute `composeRoutes` setExtension "html"
+        compile $ do
+            posts <- fmap (take 5) . recentFirst =<< loadAll "site/posts/*"
+            let indexCtx = listField "posts" postCtx (return posts) <>
+                    constField "title" "Home" <>
+                    defaultContext
+            getResourceBody
+              >>= applyAsTemplate indexCtx
+              >>= renderPandoc
+              >>= loadAndApplyTemplate "templates/default.html" defaultContext
+              >>= relativizeUrls
+
+    create ["archive.html"] $ do
+        route idRoute
+        compile $ do
+            -- firstUrl <- return . fromMaybe "" =<< getRoute (head is)
+            -- latestUrl <- return . fromMaybe "" =<< getRoute (last is)
+            posts <- recentFirst =<< loadAll "site/posts/*"
+            let archiveCtx =
+                    listField "posts" postCtx (return posts) <>
+                    constField "title" "Archives"            <>
+                    -- (menuCtx firstUrl latestUrl)
+                    defaultContext
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= relativizeUrls
+
+    pages <- buildPaginateWith
+        (liftM (paginateEvery 1) . sortRecentFirst)
+        "site/posts/*.md"
+        (\n -> is !! (n - 1))
+
+    paginateRules pages $ \num pat -> do
+        route   $ myRoute `composeRoutes` setExtension "html"
+        compile $ do
+            -- firstUrl <- fmap ('/' :) . return . fromMaybe "" =<< getRoute (head is)
+            -- latestUrl <- fmap ('/' :) . return . fromMaybe "" =<< getRoute (last is)
+            ident <- getUnderlying
+            title <- getMetadataField' ident "title"
+            url   <- return . fromMaybe "" =<< getRoute ident
+            compiled <- getResourceBody >>= renderPandoc
+            let pageCtx = paginateContext pages num
+            let flattrCtx = constField "enctitle" (urlEncode title) <>
+                            constField "encurl"   (urlEncode $ baseUrl ++ url)
+            let ctx = postCtx <> pageCtx <> flattrCtx
+            full <- loadAndApplyTemplate "templates/post.html" ctx compiled
+            _ <- saveSnapshot "content" compiled
+            loadAndApplyTemplate "templates/default.html"
+              defaultContext full
+                >>= relativizeUrls
+
+    -- create ["index.html"] $ do
+    --     route idRoute
+    --     compile $ do
+    --         post <- fmap head . recentFirst =<< (loadAll "site/posts/*" :: Compiler [Item String])
+    --         let indexCtx =
+    --                 constField "date" "%B %e, %Y" <>
+    --                 defaultContext
+    --         makeItem (itemBody post)
+    --             >>= relativizeUrls
+
+--------------------------------------------------------------------------------
+
+myRoute :: Routes
+myRoute = gsubRoute "site/" (const "")
+
+--------------------------------------------------------------------------------
+postCtx :: Context String
+postCtx =
+    dateField "date" "%B %e, %Y" <>
+    defaultContext
+
+-- menuCtx :: String -> String -> Context String
+-- menuCtx first latest =
+--     constField "first" first <>
+--     constField "latest" latest <>
+--     defaultContext
+
+--------------------------------------------------------------------------------
+config :: Configuration
+config = defaultConfiguration
+  { deployCommand = "rsync --del --checksum -rave 'ssh -p 5555' _site/* nek0@chelnok.de:/home/nek0/www/chaoszone"
+  }
+
+--------------------------------------------------------------------------------
+
+sortIdentifiersByDate :: [Identifier] -> [Identifier]
+sortIdentifiersByDate =
+    sortBy byDate
+  where
+    byDate id1 id2 =
+      let fn1 = takeFileName $ toFilePath id1
+          fn2 = takeFileName $ toFilePath id2
+          parseTime' fn = parseTimeM True defaultTimeLocale "%Y-%m-%d" $
+            intercalate "-" $ take 3 $ splitAll "-" fn
+      in compare
+           (parseTime' fn1 :: Maybe UTCTime)
+           (parseTime' fn2 :: Maybe UTCTime)
