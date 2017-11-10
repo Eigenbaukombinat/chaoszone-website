@@ -4,8 +4,8 @@ import           Data.Monoid ((<>))
 import           Hakyll
 -- import           Hakyll.Web.Sass
 
-import           Data.Time.Clock (UTCTime)
-import           Data.Time.Format (parseTimeM, defaultTimeLocale)
+import           Data.Time.Clock (UTCTime, getCurrentTime)
+import           Data.Time.Format (parseTimeM, defaultTimeLocale, formatTime)
 import           Data.List
 import           Data.Maybe (fromMaybe)
 import           System.FilePath (takeFileName)
@@ -18,7 +18,11 @@ baseUrl :: String
 baseUrl = "https://chaoszone.cz"
 
 main :: IO ()
-main = hakyllWith config $ do
+main = do
+  curtime <- formatTime defaultTimeLocale "%A %F %H:%M" <$> getCurrentTime
+  hakyllWith config $ do
+
+    let defaultCtx = constField "curtime" curtime <> defaultContext
 
     is <- sortIdentifiersByDate <$> getMatches "site/posts/*.md"
 
@@ -49,7 +53,7 @@ main = hakyllWith config $ do
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/default.html"
                         -- (menuCtx firstUrl latestUrl)
-                        defaultContext
+                        defaultCtx
                 >>= relativizeUrls
 
     match "site/index.md" $ do
@@ -58,11 +62,11 @@ main = hakyllWith config $ do
             posts <- fmap (take 5) . recentFirst =<< loadAll "site/posts/*"
             let indexCtx = listField "posts" postCtx (return posts) <>
                     constField "title" "Home" <>
-                    defaultContext
+                    defaultCtx
             getResourceBody
               >>= applyAsTemplate indexCtx
               >>= renderPandoc
-              >>= loadAndApplyTemplate "templates/default.html" defaultContext
+              >>= loadAndApplyTemplate "templates/default.html" defaultCtx
               >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -75,7 +79,7 @@ main = hakyllWith config $ do
                     listField "posts" postCtx (return posts) <>
                     constField "title" "Archives"            <>
                     -- (menuCtx firstUrl latestUrl)
-                    defaultContext
+                    defaultCtx
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
@@ -102,7 +106,7 @@ main = hakyllWith config $ do
             full <- loadAndApplyTemplate "templates/post.html" ctx compiled
             _ <- saveSnapshot "content" compiled
             loadAndApplyTemplate "templates/default.html"
-              defaultContext full
+              defaultCtx full
                 >>= relativizeUrls
 
     -- create ["index.html"] $ do
@@ -111,7 +115,7 @@ main = hakyllWith config $ do
     --         post <- fmap head . recentFirst =<< (loadAll "site/posts/*" :: Compiler [Item String])
     --         let indexCtx =
     --                 constField "date" "%B %e, %Y" <>
-    --                 defaultContext
+    --                 defaultCtx
     --         makeItem (itemBody post)
     --             >>= relativizeUrls
 
@@ -130,7 +134,7 @@ postCtx =
 -- menuCtx first latest =
 --     constField "first" first <>
 --     constField "latest" latest <>
---     defaultContext
+--     defaultCtx
 
 --------------------------------------------------------------------------------
 config :: Configuration
