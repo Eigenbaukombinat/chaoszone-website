@@ -139,7 +139,7 @@ postCtx =
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
-  { deployCommand = "rsync --del --checksum -rav _site/* ../chaoszone-run/"
+  { deployCommand = "rsync --del --checksum -rv _site/* ../chaoszone-run/"
   }
 
 --------------------------------------------------------------------------------
