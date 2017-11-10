@@ -81,7 +81,7 @@ main = do
                     -- (menuCtx firstUrl latestUrl)
                     defaultCtx
             makeItem ""
-                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/archive.md" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
