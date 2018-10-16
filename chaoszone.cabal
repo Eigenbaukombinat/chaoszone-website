@@ -18,7 +18,7 @@ executable chaoszone
   main-is:             Main.hs
   -- other-modules:       
   other-extensions:    OverloadedStrings
-  build-depends:       base >=4.10 && <4.11
+  build-depends:       base >=4.10 && < 5
                      , time
                      , filepath >=1.4
                      , hakyll >=4.9.8.0
