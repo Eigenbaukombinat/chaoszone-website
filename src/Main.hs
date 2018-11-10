@@ -30,7 +30,7 @@ main = do
 
     match
       (    "site/images/*"
-      .||. "site/fonts/*"
+      .||. "site/fonts/**"
       .||. "site/humans.txt"
       .||. "site/robots.txt"
       ) $ do

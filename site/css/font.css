@@ -1,6 +1,20 @@
 @font-face {
-    font-family: 'Xolonium'
+    font-family: 'Xolonium';
     src: url('/fonts/Xolononiu-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MontserratBlack';
+    src: url('/fonts/Montserrat/Montserrat-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MontserratLight';
+    src: url('/fonts/Montserrat/Montserrat-Light.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
