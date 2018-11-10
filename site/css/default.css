@@ -10,7 +10,7 @@ body {
     font-size: 20px;
     font-weight: normal;
     font-style: normal;
-    margin: 0 50px 0;
+    margin: 0 2rem 0;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -22,6 +22,7 @@ header {
     padding: 12px 0px 12px 0px;
     font-family: 'MontserratBlack';
     font-size: 30px;
+    margin-left: 15rem;
 }
 
 h1, h2, h3, h4, h5 {
@@ -38,6 +39,15 @@ a:hover {
     text-decoration: underline
 }
 
+#logo, #logo img {
+    max-width: 13rem;
+}
+
+#logo {
+    position: fixed;
+    padding-top: 1rem;
+}
+
 div#logo a {
     color: white;
     font-weight: bold;
@@ -45,8 +55,7 @@ div#logo a {
 }
 
 nav {
-    position: relative;
-    float: left;
+    display: inline-block;
 }
 
 nav ul{
@@ -54,6 +63,11 @@ nav ul{
     list-style: none;
     display: inline-block;
     margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
 }
 
 nav li a {
@@ -65,8 +79,12 @@ nav li a {
     text-transform: uppercase;
 }
 
+nav li a:first-child {
+    margin: 0;
+}
+
 article {
-    margin-left: 200px;
+    padding-left: 15rem;
 }
 
 footer {
