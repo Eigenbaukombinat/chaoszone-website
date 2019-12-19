@@ -56,18 +56,29 @@ main = do
                         defaultCtx
                 >>= relativizeUrls
 
-    match "site/index.md" $ do
-        route $ myRoute `composeRoutes` setExtension "html"
+    create ["index.html"] $ do
+        route idRoute
         compile $ do
-            posts <- fmap (take 5) . recentFirst =<< loadAll "site/posts/*"
-            let indexCtx = listField "posts" postCtx (return posts) <>
-                    constField "title" "Home" <>
+            post <- fmap head . recentFirst =<< (loadAll "site/posts/*"
+                :: Compiler [Item String])
+            let indexCtx =
+                    constField "date" "%B %e, %Y" <>
                     defaultCtx
-            getResourceBody
-              >>= applyAsTemplate indexCtx
-              >>= renderPandoc
-              >>= loadAndApplyTemplate "templates/default.html" defaultCtx
-              >>= relativizeUrls
+            makeItem (itemBody post)
+                >>= relativizeUrls
+
+    -- match "site/index.md" $ do
+    --     route $ myRoute `composeRoutes` setExtension "html"
+    --     compile $ do
+    --         posts <- fmap (take 5) . recentFirst =<< loadAll "site/posts/*"
+    --         let indexCtx = listField "posts" postCtx (return posts) <>
+    --                 constField "title" "Home" <>
+    --                 defaultCtx
+    --         getResourceBody
+    --           >>= applyAsTemplate indexCtx
+    --           >>= renderPandoc
+    --           >>= loadAndApplyTemplate "templates/default.html" defaultCtx
+    --           >>= relativizeUrls
 
     create ["archive.html"] $ do
         route idRoute
