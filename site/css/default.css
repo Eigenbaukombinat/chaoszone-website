@@ -1,7 +1,7 @@
 body {
     color: black;
-    font-family: 'Sans';
-    font-size: 20px;
+    font-family: 'CMUTypewriter';
+    font-size: 23px;
     font-weight: normal;
     font-style: normal;
     padding: 0 2rem 0;
@@ -30,13 +30,13 @@ header {
     border-bottom: 2px solid white;
     margin-bottom: 30px;
     padding: 12px 0px 12px 0px;
-    font-family: 'MontserratBlack';
+    font-family: 'CMUTypewriter';
     font-size: 30px;
     margin-left: 25rem;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'MontserratBlack';
+    font-family: 'CMUTypewriter';
 }
 
 a {
@@ -45,7 +45,7 @@ a {
 }
 
 a:hover {
-    color: #c33500;
+    color: #aaa000;
     text-decoration: underline
 }
 
@@ -118,7 +118,6 @@ h2 {
 }
 
 div.info {
-    color: #555;
     font-size: 14px;
     font-style: italic;
 }
