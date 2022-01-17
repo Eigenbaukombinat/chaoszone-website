@@ -1,4 +1,8 @@
+{ pkgs ? import <nixpkgs> {}}:
+
 let
-  hsPkgs = import ./default.nix {};
+  chaoszone_cz =
+    pkgs.haskellPackages.callCabal2nix "chaoszone_cz" (gitignore ./.) {};
+  gitignore = dir: pkgs.nix-gitignore.gitignoreSource [] dir;
 in
-  hsPkgs.chaoszone.components.all
+  chaoszone_cz.env
