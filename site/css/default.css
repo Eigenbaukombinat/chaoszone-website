@@ -1,14 +1,20 @@
 body {
   color: black;
   font-family: 'CMUTypewriter';
-  font-size: 23px;
+  font-size: 23pt;
   font-weight: normal;
   font-style: normal;
   padding: 0 2rem 0;
   margin: 0;
-  display: flex;
+  display: grid;
   min-height: 100vh;
-  flex-direction: column;
+  grid-template-columns: [leftcol] 23rem [maincol] auto [rightcol] 1fr;
+  grid-template-rows: [headerrow] 6rem [mainrow] auto [footerrow] 2rem;
+  grid-template-areas:
+    "logo header header"
+    "logo main main"
+    "logo footer footer";
+  background-color: #a21d10;
 }
 
 body::before {
@@ -19,21 +25,24 @@ body::before {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #c30000;
-  background-image: linear-gradient(to bottom, rgba(195,0,0,0.9) 0%,rgba(195,0,0,0.9) 100%), url(/images/Chaoszone.black.svg);
+  background-image: url(/images/Chaoszone.black.svg);
   background-size: contain;
   background-attachment:fixed;
   background-repeat:no-repeat;
   background-position: center;
+  opacity: 0.05;
 }
 
 header {
   border-bottom: 2px solid white;
   margin-bottom: 30px;
   padding: 12px 0px 12px 0px;
+  grid-area: header;
+}
+
+header, header a {
   font-family: 'CMUTypewriter';
-  font-size: 30px;
-  margin-left: 25rem;
+  font-size: 23pt;
 }
 
 h1, h2, h3, h4, h5 {
@@ -48,6 +57,10 @@ a {
 a:hover {
   color: #aaa000;
   text-decoration: underline
+}
+
+#logo {
+  grid-area: logo;
 }
 
 #logo, #logo img {
@@ -83,7 +96,6 @@ nav li {
 
 nav li a {
   color: white;
-  font-size: 18px;
   font-weight: bold;
   margin-left: 12px;
   text-decoration: none;
@@ -95,7 +107,7 @@ nav li a:first-child {
 }
 
 article {
-  margin-left: 25rem;
+  grid-area: main;
 }
 
 article img {
@@ -103,19 +115,22 @@ article img {
 }
 
 footer {
+  grid-area: footer;
   border-top: solid 2px white;
   font-size: 12px;
   padding: 12px 0px 12px 0px;
   text-align: right;
 }
 
+/*
 h1 {
-  font-size: 24px;
+  font-size: 24pt;
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 20pt;
 }
+*/
 
 div.info {
   font-size: 14px;

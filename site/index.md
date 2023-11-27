@@ -1,16 +1,16 @@
 ---
-title: Home
+title: Under Construction
 ---
 
-## Welcome, Comrades!
+## /!\\ Codeworks ahead /!\\
 
+Hello there!
 
-Welcome to this blog!
+As the 37th Chaos Communication Congress draws nearer a greater overhaul of this page is in order.
 
-We are ChaosZone, mostly hackers from eastern countries, but all creatures are
-welcome. Meet us at our Assembly at 35C3.
+Come back soon for more Information on ChaosZone and its member hackerspaces.
 
-The latest posts here are:
+Posts from previous years:
 
 $partial("templates/post-list.html")$
 
