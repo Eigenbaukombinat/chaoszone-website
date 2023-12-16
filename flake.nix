@@ -23,21 +23,6 @@
         defaultPackage = self.packages.${system}.${packageName};
 
         devShell = import ./shell.nix {inherit pkgs; chaoszone = defaultPackage;};
-        #devShell = pkgs.mkShell {
-        #  buildInputs = with haskellPackages; [
-        #    haskell-language-server
-        #    ghcid
-        #    cabal-install
-        #  ];
-        #  nativeBuildInputs = with pkgs; [
-        #    pkg-config
-        #    glib
-        #    freetype
-        #    glew
-        #    SDL2
-        #  ];
-        #  inputsFrom = builtins.attrValues self.packages.${system};
-        #};
       });
 }
 
