@@ -110,6 +110,20 @@ main = do
               defaultCtx full
                 >>= relativizeUrls
 
+    create ["atom.xml"] $ do
+      route idRoute
+      compile $ do
+        loadAllSnapshots "site/posts/*.md" "content"
+          >>= recentFirst
+          >>= renderAtom feedConf feedCtx
+
+    create ["rss.xml"] $ do
+      route idRoute
+      compile $ do
+        loadAllSnapshots "site/posts/*.md" "content"
+          >>= recentFirst
+          >>= renderRss feedConf feedCtx
+
 --------------------------------------------------------------------------------
 
 myRoute :: Routes
@@ -131,6 +145,25 @@ postCtx =
 config :: Configuration
 config = defaultConfiguration
   { deployCommand = "rsync --del --checksum -arve 'ssh -p 5557 ' _site/* chaoszone@chaoszone.cz:/home/chaoszone/www/chaoszone"
+  }
+
+--------------------------------------------------------------------------------
+
+feedCtx :: Context String
+feedCtx = mconcat
+  [ bodyField "description"
+  , defaultContext
+  ]
+
+--------------------------------------------------------------------------------
+
+feedConf :: FeedConfiguration
+feedConf = FeedConfiguration
+  { feedTitle = "Chaosone news"
+  , feedDescription = "News from eastern european hackerspaces"
+  , feedAuthorName = "Chaoszone members"
+  , feedAuthorEmail = "nek0@chaoszone.cz"
+  , feedRoot = "https://chaoszone.cz"
   }
 
 --------------------------------------------------------------------------------
