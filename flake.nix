@@ -18,22 +18,11 @@
 
           packageName = "chaoszone";
       in rec {
-        packages.${packageName} = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix packageName self rec {
-          };
+        packages.${packageName} = import ./default.nix {inherit pkgs self;};
 
         defaultPackage = self.packages.${system}.${packageName};
 
-        devShell = haskellPackages.shellFor {
-          packages = p: [ defaultPackage ];
-          withHoogle = true;
-          buildInputs = with haskellPackages; with pkgs; [
-            vim
-            haskell-language-server
-            ghcid
-            cabal-install
-          ];
-        };
+        devShell = import ./shell.nix {inherit pkgs; chaoszone = defaultPackage;};
         #devShell = pkgs.mkShell {
         #  buildInputs = with haskellPackages; [
         #    haskell-language-server
