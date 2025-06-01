@@ -1,0 +1,58 @@
+:root {
+	--bg-color: #DE4129;
+	--hl-color: #A72119;
+	--menu-font-color: white;
+	--font-color: #430C08;
+	--box-bg: #FF664B;
+	--main-font: 'Cubellan';
+}
+
+@font-face {
+  font-family: 'Cubellan';
+  src: url('../font/Cubellan.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+	background-color: var(--bg-color);
+	color: var(--font-color);
+	font-family: var(--main-font);
+	min-height: 100vh;
+	font-size: 20pt;
+}
+
+body {
+	margin: 3em;
+}
+
+nav a, nav a:visited {
+	color: var(--menu-font-color);
+	font-size: 120%;
+}
+
+nav ul {
+	list-style: none;
+	display: inline-block;
+}
+
+nav li {
+	display: inline-block;
+}
+
+.logo {
+	display: inline-block;
+	padding: 0.5em;
+	border-radius: 23px;
+	background-color: var(--hl-color);
+}
+
+.logo img {
+	max-width: 8em;
+}
+
+main {
+	padding: 2em;
+	border-radius: 23px;
+	background-color: var(--box-bg);
+}
