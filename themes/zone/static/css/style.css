@@ -18,12 +18,27 @@ html {
 	background-color: var(--bg-color);
 	color: var(--font-color);
 	font-family: var(--main-font);
-	min-height: 100vh;
 	font-size: 20pt;
 }
 
 body {
-	margin: 3em;
+  padding: 3em 3em 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "navigation . main"
+    "footer footer footer";
+  grid-template-columns: 225px 25px auto;
+  grid-template-rows: auto 50px;
+  margin: 0;
+}
+
+header {
+  grid-area: navigation;
+  justify-self: stretch;
+  padding-right: 25px;
+  border-right: 5px solid var(--hl-color);
 }
 
 nav a, nav a:visited {
@@ -43,16 +58,22 @@ nav li {
 .logo {
 	display: inline-block;
 	padding: 0.5em;
-	border-radius: 23px;
+	border-radius: 50%;
 	background-color: var(--hl-color);
 }
 
 .logo img {
-	max-width: 8em;
+	max-width: 5em;
 }
 
 main {
+  grid-area: main;
+  justify-self: stretch;
 	padding: 2em;
 	border-radius: 23px;
 	background-color: var(--box-bg);
+}
+
+footer {
+  grid-area: footer;
 }
