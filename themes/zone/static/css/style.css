@@ -1,9 +1,9 @@
 :root {
-	--bg-color: #DE4129;
+	--bg-color: #841205;
 	--hl-color: #A72119;
 	--menu-font-color: white;
 	--font-color: #430C08;
-	--box-bg: #FF664B;
+	--box-bg: #ece2d5;
 	--main-font: 'Cubellan';
 }
 
@@ -38,11 +38,10 @@ header {
   grid-area: navigation;
   justify-self: stretch;
   padding-right: 25px;
-  border-right: 5px solid var(--hl-color);
 }
 
 nav a, nav a:visited {
-	color: var(--menu-font-color);
+	color: var(--box-bg);
 	font-size: 120%;
 }
 
@@ -59,11 +58,12 @@ nav li {
 	display: inline-block;
 	padding: 0.5em;
 	border-radius: 50%;
-	background-color: var(--hl-color);
+  border: 5px solid var(--box-bg);
 }
 
 .logo img {
 	max-width: 5em;
+	max-height: 5em;
 }
 
 main {
