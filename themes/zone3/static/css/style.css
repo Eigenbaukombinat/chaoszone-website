@@ -1,0 +1,179 @@
+:root {
+	--bg-color: #841205;
+	--hl-color: #A72119;
+	--menu-font-color: white;
+	--font-color: #430C08;
+	--box-bg: #ece2d5;
+	--main-font: 'Cubellan';
+}
+
+@font-face {
+  font-family: 'Cubellan';
+  src: url('../font/Cubellan.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+	font-size: 1.5rem;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--box-bg);
+  color: var(--font-color);
+  font-family: var(--main-font);
+}
+
+.container {
+	max-width: 60rem;
+	margin: 0 auto;
+	padding: clamp(.5rem, 2vw, 3rem);
+}
+
+section.red {
+	background-color: var(--bg-color);
+}
+
+main {
+	font-size: 1.2rem;
+}
+
+/** Header and Navigation ###################################################### **/
+
+header {
+	background-color: var(--bg-color);
+	border-bottom: 1px solid var(--box-bg);
+}
+
+header .container {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-block: clamp(.5rem, 1.5vw, 1.7rem);
+}
+
+header .logo {
+	flex-grow: 1;
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: clamp(1.5rem, 4vw, 3rem);
+	color: var(--box-bg);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	flex-grow: 1;
+ 	justify-content: flex-start;
+}
+
+header .site-nav {
+	flex-grow: 1;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+.logo img {
+	height: 3rem;
+	margin: .5rem;
+}
+
+.main-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.main-menu > li {
+	margin: 0;
+	padding: 0;
+}
+
+.main-menu > li > a {
+	display: block;
+	padding-inline: clamp(0.5em, 1.5vw, 1.5em);
+	padding-block: 0.2rem;
+	color: var(--menu-font-color);
+	text-decoration: none;
+}
+
+/* landscape view */
+@media (orientation: portrait) {
+	header .logo {
+		justify-content:center;
+	}
+
+	header .site-nav {
+		justify-content:center;
+	}
+}
+
+/** footer ###################################################### **/
+
+footer {
+	background-color: var(--bg-color);
+	color: var(--box-bg);
+	padding: 1rem 0;
+}
+
+footer > .container {
+	display: flex;
+	justify-content: space-between;
+	gap: 2rem;
+}
+
+footer > .container > div {
+	flex-basis: 25%;
+}
+
+
+footer > .container > div:last-child {
+	flex-basis: auto;
+}
+
+.footer-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.footer-menu  a {
+	color: var(--box-bg);
+	text-decoration: none;
+}
+
+@media (orientation: portrait) {
+	footer > .container {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 0.5rem;
+	}
+	
+	footer > .container > div {
+		flex-basis: auto;
+		margin-bottom: 1rem;
+	}
+}
+
+/** other ###################################################### **/
+
+
+pong-game {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+
