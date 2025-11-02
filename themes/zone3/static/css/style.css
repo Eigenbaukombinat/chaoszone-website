@@ -4,7 +4,8 @@
 	--menu-font-color: white;
 	--font-color: #430C08;
 	--box-bg: #ece2d5;
-	--main-font: 'Cubellan';
+	--main-font: Arial, Helvetica, sans-serif;
+	--highlight-font: 'Cubellan';
 }
 
 @font-face {
@@ -41,7 +42,17 @@ section.red {
 }
 
 main {
-	font-size: 1.2rem;
+	font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: var(--highlight-font);
+}
+
+h1 {
+	font-size: clamp(2rem, 5vw, 3.5rem);
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
 }
 
 /** Header and Navigation ###################################################### **/
@@ -49,6 +60,7 @@ main {
 header {
 	background-color: var(--bg-color);
 	border-bottom: 1px solid var(--box-bg);
+	font-family: var(--highlight-font);
 }
 
 header .container {
@@ -81,7 +93,7 @@ header .site-nav {
 }
 
 .logo img {
-	height: 3rem;
+	height: clamp(1.5rem, 4vw, 3rem);
 	margin: .5rem;
 }
 
@@ -174,6 +186,32 @@ pong-game {
 	height: auto;
 	margin: 0 auto;
 	display: block;
+}
+
+.news-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+.news-list li a {
+	display: block;
+	margin-bottom: 0.5rem;
+	background-color: var(--hl-color);
+	color: var(--menu-font-color);
+	text-decoration: none;
+	padding: 0.5rem;
+}
+
+.news-list li a:hover {
+	background-color: var(--bg-color);
+}
+
+.news-list li a span {
+	display: block;
+	font-size: 0.7em;
+	margin-bottom: 0.3em;
 }
 
 

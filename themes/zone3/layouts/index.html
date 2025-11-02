@@ -15,8 +15,24 @@
 
 <section class="container">
   <h1>News</h1>
-  ...
+  {{ $subpage := site.GetPage "news" }}
+  {{ with $subpage.Pages }}
+  <ul class="news-list">
+    {{ range . }}
+      <li>
+        <a href="{{ .RelPermalink }}">
+          <span>{{ .Date.Format "2006-01-02" }}</span>
+          {{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+  {{ end }}
 
+  <a href="#">news archiv >>></a>
+</section>
+
+<section>
+  <chaos-map></chaos-map>
 </section>
 
 {{ end }}

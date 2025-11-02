@@ -22,3 +22,5 @@ The source files for the <https://chaoszone.cz> website.
   - game of live
   - raindrop: https://experiments.p5aholic.me/day/005/
   - pong: https://designs.events.ccc.de/GPN8/GPN8-Visual.png
+  - poly play: https://www.gugeli.de/2025/08/12/poly-play-der-einzige-arcade-automat-der-ddr-und-wie-man-ihn-heute-emuliert/
+- matrix link im footer zu eigener unterseite mit beschreibung

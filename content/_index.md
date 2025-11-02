@@ -1,5 +1,5 @@
 +++
-title = 'ChaosZone'
+title = 'About'
 date = 2025-06-01T22:39:26+02:00
 draft = true
 +++
